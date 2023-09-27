@@ -45,6 +45,8 @@ and repo_identifier
   - See between main.tf and locals.tf the commented out versions of hardcoding into main vs using these configurables.
   - it will do the dependency injection automatically (in this case, creating the projects which have no dependencies, and then injecting their output variables into workspace)
 
+  - variables in aws network/cluster sections allows us to programmatically control our network settings from within the repo
+
 ## backend.tf
   - 
 
