@@ -1,4 +1,4 @@
-# /// Direct declaration of project and workspaces
+# /// Direct module declaration of project and workspaces
 
 # module "project" {
 #   source  = "ALT-F4-LLC/project/tfe"
@@ -21,7 +21,7 @@
 #   project_id        = module.project.id
 # }
 
-
+# /// Locals module declaration pointing to locals and navigating to their values
 
 module "project" {
   for_each = local.project
@@ -46,6 +46,13 @@ module "workspace" {
   organization_name = var.organization_name
   project_id        = each.value.project_id
 }
+
+moved {
+  from = module.workspace["fem-eci-workspace"]
+  to   = module.workspace["fem-eci-tfe"]
+}
+
+# Migrating the original straight declarations to the local implementations.
 
 # moved {
 #   from = module.workspace
