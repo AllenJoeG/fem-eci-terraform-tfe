@@ -85,7 +85,7 @@ locals {
         {
           category = "terraform"
           key      = "cluster_name"
-          value    = "fem-eci-<your-nam>-prod"
+          value    = "fem-eci-allenjoeg-prod"
         },
         {
           category = "terraform"
