@@ -1,29 +1,57 @@
-# module "team" {
-#   source = "ALT-F4-LLC/team/tfe"
-#   version = "0.2.0"
+# /// Direct declaration of project and workspaces
 
-#   name = "fem-eci-team"
+# module "project" {
+#   source  = "ALT-F4-LLC/project/tfe"
+#   version = "0.4.0"
+
+#   description       = "Following FEM Enterprise Cloud Infrastructure course"
+#   name              = "fem-eci-project"
 #   organization_name = var.organization_name
-#   usernames = var.organization_usernames
+#   # team_ids          = [var.team_id]
 # }
 
+# module "workspace" {
+#   source  = "ALT-F4-LLC/workspace/tfe"
+#   version = "0.6.0"
+
+#   description       = "Still following FEM Enterprise Cloud Infrastructure"
+#   execution_mode    = "local"
+#   name              = "fem-eci-workspace"
+#   organization_name = var.organization_name
+#   project_id        = module.project.id
+# }
+
+
+
 module "project" {
+  for_each = local.project
+
   source  = "ALT-F4-LLC/project/tfe"
   version = "0.4.0"
 
-  description       = "Following FEM Enterprise Cloud Infrastructure course"
-  name              = "fem-eci-project"
+  description       = each.value.description
+  name              = each.key
   organization_name = var.organization_name
-  # team_ids          = [var.team_id]
 }
 
 module "workspace" {
+  for_each = local.workspace
+
   source  = "ALT-F4-LLC/workspace/tfe"
   version = "0.6.0"
 
-  description       = "Still following FEM Enterprise Cloud Infrastructure"
+  description       = each.value.description
   execution_mode    = "local"
-  name              = "fem-eci-workspace"
+  name              = each.key
   organization_name = var.organization_name
-  project_id        = module.project.id
+  project_id        = each.value.project_id
 }
+
+# moved {
+#   from = module.workspace
+#   to   = module.workspace["fem-eci-workspace"]
+# }
+# moved {
+#   from = module.project
+#   to   = module.project["fem-eci-project"]
+# }
