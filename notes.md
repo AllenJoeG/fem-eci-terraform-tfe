@@ -21,7 +21,10 @@
 
   Terraform has an automated dependency tree generator. Anything listed here, it will know how to sort the order of the dependencies in order.
 
-  Now implemented are for_each which will apply  
+  Now implemented are for_each which will apply the locals
+
+  ### vcs_repo
+    added to workspace to link github data. Every workspace we create will have a repo, and will need that repository information. Terraform has to be able to access any linked and required repository.
 
   ### moved {}
     - when renaming things, you will need to point the previous name to new names with doing subsequent deployments or plan -outs and applies.
@@ -30,6 +33,13 @@
 ## variables.tf
   set variables with type declarations that can be plugged into other .tf files
 
+  Bring over github variables
+  Github > settings > Integrations > Applications > Terraform Cloud
+installation ID: '42283516'
+This value needs to be added to fem-eci-terraform-tfe variables.tf along with github organization name
+
+and repo_identifier
+
 ## locals.tf
   - we're going to plug in project and workspace attribute sets to run multiples. This data will plug into the module declarations in main.tf without conflict for easy configuration.
   - See between main.tf and locals.tf the commented out versions of hardcoding into main vs using these configurables.
@@ -37,3 +47,6 @@
 
 ## backend.tf
   - 
+
+## data.tf
+  pointing the github installation id as a data lookup (essentially API calling)
